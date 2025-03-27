@@ -61,13 +61,13 @@ class NetworkScanner:
             # Parse namp output into structured formate
             for host in self.scanner.all_hosts():
                 results["hosts"][host] = {
-                    "statuss": self.scanner[host].state(),
+                    "status": self.scanner[host].state(),
                     "hostnames": self.scanner[host].hostnames(),
                     "ports": {}
                 }
 
                 # Add OS information if available
-                if hasattr(self.scanner[host], 'osclass') and self.scanner[host].osclss():
+                if hasattr(self.scanner[host], 'osclass') and self.scanner[host].osclass():
                     results["hosts"][host]["os"] = self.scanner[host].osclass()
 
                 # Add port and service information
@@ -78,7 +78,7 @@ class NetworkScanner:
                         port_info = self.scanner[host][proto][port]
                         results["hosts"][host]["ports"][proto][port] = port_info
 
-            logger.info(f"Completed Scan {scan_id}, found {sum(len(host_data['ports'].get('tcp', {})) for host_data in results["hosts"].values())} open ports")
+            logger.info(f"Completed Scan {scan_id}, found {self.scanner}")
             return scan_id, results
     
         except Exception as e:
