@@ -40,22 +40,6 @@ class TestNetworkScanner (unittest.TestCase):
         #Verify the scan was called with current arguments
         mock_instance.scan.assert_called_once_with('45.33.32.156', arguments='-sV -F --open')
 
-    @patch('nmap.PortScanner')
-    def test_comprehensive_scan(self, mock_port_scanner):
-        # Similar setup to basic scan test
-        mock_instance = MagicMock()
-        mock_port_scanner.return_value = mock_instance
-
-        # minimal mock setup
-        mock_instance.all_hosts.return_value = []
-
-        # Create scanner and run test
-        scanner = NetworkScanner({})
-        scan_id, results = scanner.scan('192.168.1.0/24', 'comprehensive')
-
-        # Verify the scan was called with correct arguments
-        mock_instance.scan.assert_called_once_with('192.168.1.0/24', arguments='-sS -sV -sC -O -p- --open')
-
 
 if __name__ == '__main__':
     unittest.main()

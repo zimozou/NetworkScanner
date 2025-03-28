@@ -11,10 +11,11 @@ def main():
 
     # Test parameters
     target = "scanme.nmap.org"  # Localhost for safe testing
-    scan_type = "basic"   # Start with a quick scan
+    scan_type = "customer"   # Start with a quick scan
+    argument = "-sV"
 
     # Run the scan
-    scan_id, results = scanner.scan(target, scan_type)
+    scan_id, results = scanner.scan(target, scan_type, argument)
 
     # Print basic info
     print(f"Scan ID: {scan_id}")

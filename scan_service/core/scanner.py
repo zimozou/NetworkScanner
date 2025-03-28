@@ -10,7 +10,7 @@ class NetworkScanner:
         self.scanner = nmap.PortScanner()
         self.config = config
     
-    def scan(self, target, scan_type="basic"):
+    def scan(self, target, scan_type="basic", argument="-sV"):
         """
         Execute a network scan against the target
         
@@ -34,6 +34,8 @@ class NetworkScanner:
                 args = "-sS -sV -sC -O -p- --open" #SYN scan, service detection, scripts, OS detection, all ports
             elif scan_type == "service":
                 args = "-sV --version-intersity 7" # Intensive service version detection
+            elif scan_type == "custom":
+                args = argument
             else:
                 args = "-sV"
 
