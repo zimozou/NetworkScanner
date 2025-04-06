@@ -4,6 +4,8 @@ AI/ML-Enhanced Network Scanner
 ## Overview
 This project enhances traditional network scanners with AI/ML capabilities to prioritize vulnerabilities, detect anomalies, and provide automated reporting. By combining machine learning, natural language processing (NLP), and optimized scanning workflows, this tool automates and improves vulnerability management, making it easier to identify and address critical security issues.
 
+A chance for me to learn many different things and see if I can combine them and create something worth-while
+
 ## Key Features
 - **Prioritize Vulnerabilities**: Predict which vulnerabilities are most likely to be exploited using ML models.
 - **Anomaly Detection**: Identify zero-day threats or unusual network behavior that traditional scanners might miss.
