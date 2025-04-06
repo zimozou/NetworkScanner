@@ -33,7 +33,7 @@ class NetworkScanner:
             elif scan_type == "comprehensive":
                 args = "-sS -sV -sC -O -p- --open" #SYN scan, service detection, scripts, OS detection, all ports
             elif scan_type == "service":
-                args = "-sV --version-intersity 7" # Intensive service version detection
+                args = "-sV --version-intensity 7" # Intensive service version detection
             elif scan_type == "custom":
                 args = argument
             else:

@@ -11,7 +11,7 @@ def main():
 
     # Test parameters
     target = "scanme.nmap.org"  # Localhost for safe testing
-    scan_type = "customer"   # Start with a quick scan
+    scan_type = "custom"   # Start with a quick scan
     argument = "-sV"
 
     # Run the scan
