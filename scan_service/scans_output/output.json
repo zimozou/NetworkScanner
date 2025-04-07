@@ -96,5 +96,55 @@
         }
       }
     }
+  },
+  "cbf561cf-834e-43d8-91f7-5822f587c5eb": {
+    "cbf561cf-834e-43d8-91f7-5822f587c5eb": {
+      "target": "scanme.nmap.org",
+      "scan_type": "basic",
+      "start_time": "2025-04-07T17:12:18.988672",
+      "end_time": "2025-04-07T17:12:31.516278",
+      "duration": 12.527606,
+      "hosts": {
+        "45.33.32.156": {
+          "status": "up",
+          "hostnames": [
+            {
+              "name": "scanme.nmap.org",
+              "type": "user"
+            },
+            {
+              "name": "scanme.nmap.org",
+              "type": "PTR"
+            }
+          ],
+          "ports": {
+            "tcp": {
+              "22": {
+                "state": "open",
+                "reason": "syn-ack",
+                "name": "ssh",
+                "product": "OpenSSH",
+                "version": "6.6.1p1 Ubuntu 2ubuntu2.13",
+                "extrainfo": "Ubuntu Linux; protocol 2.0",
+                "conf": "10",
+                "cpe": "cpe:/o:linux:linux_kernel"
+              },
+              "80": {
+                "state": "open",
+                "reason": "syn-ack",
+                "name": "http",
+                "product": "Apache httpd",
+                "version": "2.4.7",
+                "extrainfo": "(Ubuntu)",
+                "conf": "10",
+                "cpe": "cpe:/a:apache:http_server:2.4.7"
+              }
+            }
+          },
+          "cve_data": {},
+          "anomalies": []
+        }
+      }
+    }
   }
 }
