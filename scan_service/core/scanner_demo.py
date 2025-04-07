@@ -10,12 +10,12 @@ def main():
     scanner = NetworkScanner(config={})
 
     # Test parameters
-    target = "scanme.nmap.org"  # Localhost for safe testing
-    scan_type = "custom"   # Start with a quick scan
-    argument = "-sV"
+    target = "sasdaw"  # Localhost for safe testing
+    scan_type = "basic"   # Start with a quick scan
+    # argument = "-sV"
 
     # Run the scan
-    scan_id, results = scanner.scan(target, scan_type, argument)
+    scan_id, results = scanner.scan(target, scan_type)
 
     # Print basic info
     print(f"Scan ID: {scan_id}")

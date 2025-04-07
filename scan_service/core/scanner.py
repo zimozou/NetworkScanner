@@ -9,6 +9,13 @@ class NetworkScanner:
     def __init__(self, config):
         self.scanner = nmap.PortScanner()
         self.config = config
+
+    # This function prevents invalid inputs from crashing the tool or causing security issues
+    # Could lead to command injections
+    def _is_valid_target(self, target):
+        import re
+        return re.match(r'^(\d{1,3}\.){3}\d{1,3}(/\d{1,2})?$|^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', target) is not None
+
     
     def scan(self, target, scan_type="basic", argument="-sV"):
         """
@@ -22,6 +29,17 @@ class NetworkScanner:
         - scan_id: Unique identifier for this scan
         - scan_results: Raw scan results
         """
+
+        # Validate target format (IP/CIDR/Hostname)
+        if not self._is_valid_target(target):
+            raise ValueError(f"Invalid target format: {target}")
+        
+        # TODO: Domain resolution
+        
+        # Validate scan_type
+        valid_types = ["basic", "comprehensive", "service", "custom"]
+        if scan_type not in valid_types:
+            raise ValueError(f"Invalid scan type. Choose from: {valid_types}")
 
         scan_id = str(uuid.uuid4())
         logger.info(f"Starting scan {scan_id} on target {target}")
