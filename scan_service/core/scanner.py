@@ -2,6 +2,7 @@ import nmap
 import uuid
 import datetime
 import logging
+import result_parser
 
 logger = logging.getLogger(__name__)
 
@@ -75,19 +76,20 @@ class NetworkScanner:
 
             # Extract the results
             results = {
-                "scan_id": scan_id,
-                "target": target,
-                "scan_type": scan_type,
-                "start_time": start_time.isoformat(),
-                "end_time": end_time.isoformat(),
-                "duration": duration,
-                "raw_results": self.scanner.get_nmap_last_output(),
-                "hosts": {}
+                scan_id: {
+                    "target": target,
+                    "scan_type": scan_type,
+                    "start_time": start_time.isoformat(),
+                    "end_time": end_time.isoformat(),
+                    "duration": duration,
+                    # "raw_results": self.scanner.get_nmap_last_output(),
+                    "hosts": {}
+                }
             }
 
             # Parse namp output into structured formate
             for host in self.scanner.all_hosts():
-                results["hosts"][host] = {
+                results[scan_id]["hosts"][host] = {
                     "status": self.scanner[host].state(),
                     "hostnames": self.scanner[host].hostnames(),
                     "ports": {}
@@ -95,17 +97,24 @@ class NetworkScanner:
 
                 # Add OS information if available
                 if hasattr(self.scanner[host], 'osclass') and self.scanner[host].osclass():
-                    results["hosts"][host]["os"] = self.scanner[host].osclass()
+                    results[scan_id]["hosts"][host]["os"] = self.scanner[host].osclass()
 
                 # Add port and service information
                 for proto in self.scanner[host].all_protocols():
-                    results["hosts"][host]["ports"][proto] = {}
+                    results[scan_id]["hosts"][host]["ports"][proto] = {}
 
                     for port in self.scanner[host][proto].keys():
                         port_info = self.scanner[host][proto][port]
-                        results["hosts"][host]["ports"][proto][port] = port_info
+                        results[scan_id]["hosts"][host]["ports"][proto][port] = port_info
+                
+                # Adding placeholders for future vulnerability data and behaviours
+                results[scan_id]["hosts"][host]["cve_data"] = {}
+                results[scan_id]["hosts"][host]["anomalies"] = []
 
             logger.info(f"Completed Scan {scan_id}, duration: {end_time-start_time}")
+
+            # Saving the results in json file using results parser
+            result_parser.save_results(scan_id, results)
             return scan_id, results
     
         except Exception as e:

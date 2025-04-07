@@ -11,11 +11,12 @@ def main():
 
     # Test parameters
     target = "scanme.nmap.org"  # Localhost for safe testing
-    scan_type = "udp"   # Start with a quick scan
+    scan_type = "basic"   # Start with a quick scan
     # argument = "-sV"
 
     # Run the scan
     scan_id, results = scanner.scan(target, scan_type)
+
 
     # Print basic info
     print(f"Scan ID: {scan_id}")
@@ -27,7 +28,7 @@ def main():
         return
 
     # Print host details
-    for host, host_info in results["hosts"].items():
+    for host, host_info in results[scan_id]["hosts"].items():
         print(f"\nHost: {host}")
         print(f"Status: {host_info.get('status')}")  # Fixed key name
         if 'os' in host_info:
