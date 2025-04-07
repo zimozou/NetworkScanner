@@ -37,13 +37,18 @@ class NetworkScanner:
         # TODO: Domain resolution
         
         # Validate scan_type
-        valid_types = ["basic", "comprehensive", "service", "custom"]
+        valid_types = ["basic", "comprehensive", "service", "custom", "udp"]
         if scan_type not in valid_types:
             raise ValueError(f"Invalid scan type. Choose from: {valid_types}")
 
         scan_id = str(uuid.uuid4())
         logger.info(f"Starting scan {scan_id} on target {target}")
 
+
+        """
+        Some scans will require root privilege, which requires the scanner_demo.py file
+        to be rum with sudo
+        """
         try:
             #Select scan argyument based on scan type
             if scan_type == "basic":
@@ -52,6 +57,8 @@ class NetworkScanner:
                 args = "-sS -sV -sC -O -p- --open" #SYN scan, service detection, scripts, OS detection, all ports
             elif scan_type == "service":
                 args = "-sV --version-intensity 7" # Intensive service version detection
+            elif scan_type == "udp":
+                args = "-sU -sV --open" #UDP scan with service detection, UDP can be exploited by attackers E.g. DNS amplification
             elif scan_type == "custom":
                 args = argument
             else:
@@ -98,7 +105,7 @@ class NetworkScanner:
                         port_info = self.scanner[host][proto][port]
                         results["hosts"][host]["ports"][proto][port] = port_info
 
-            logger.info(f"Completed Scan {scan_id}, found {self.scanner}")
+            logger.info(f"Completed Scan {scan_id}, duration: {end_time-start_time}")
             return scan_id, results
     
         except Exception as e:

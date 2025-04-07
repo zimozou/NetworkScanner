@@ -10,8 +10,8 @@ def main():
     scanner = NetworkScanner(config={})
 
     # Test parameters
-    target = "sasdaw"  # Localhost for safe testing
-    scan_type = "basic"   # Start with a quick scan
+    target = "scanme.nmap.org"  # Localhost for safe testing
+    scan_type = "udp"   # Start with a quick scan
     # argument = "-sV"
 
     # Run the scan
