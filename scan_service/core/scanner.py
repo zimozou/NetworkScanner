@@ -3,6 +3,7 @@ import uuid
 import datetime
 import logging
 import result_parser
+from cve_lookup import CVELookup
 
 logger = logging.getLogger(__name__)
 
@@ -108,13 +109,13 @@ class NetworkScanner:
                         results[scan_id]["hosts"][host]["ports"][proto][port] = port_info
                 
                 # Adding placeholders for future vulnerability data and behaviours
-                results[scan_id]["hosts"][host]["cve_data"] = {}
-                results[scan_id]["hosts"][host]["anomalies"] = []
+                results[scan_id]["cve_data"] = {}
 
             logger.info(f"Completed Scan {scan_id}, duration: {end_time-start_time}")
 
             # Saving the results in json file using results parser
-            result_parser.save_results(scan_id, results)
+            result_parser.save_scan_results(scan_id, results)
+            result_parser.save_cve_results(scan_id, )
             return scan_id, results
     
         except Exception as e:

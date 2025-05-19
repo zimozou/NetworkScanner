@@ -26,7 +26,10 @@ class CVELookup:
             response.raise_for_status()
             data = response.json()
 
-            print(data)
+            for i in data.get("vulnerabilities"):
+                print(i)
+
+            return data.get("vulnerabilities")
 
             # cves = [
             # ]
@@ -37,3 +40,4 @@ class CVELookup:
         
         except Exception as e:
             logger.error(f"CVE looup failed for {product} {version}: {str(e)}")
+            return {}
